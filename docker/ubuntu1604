@@ -1,0 +1,18 @@
+FROM            ubuntu:16.04
+MAINTAINER      MIT Probabilistic Computing Project
+
+RUN             apt-get update -qq && apt-get install -qq \
+                        build-essential \
+                        cython \
+                        git \
+                        python-numpy \
+                        python-pytest \
+                        python-scipy \
+                        python-six \
+                        ; # end of package list
+
+ADD             . /crosscat
+WORKDIR         /crosscat
+RUN             ./check.sh
+RUN             python setup.py sdist
+RUN             python setup.py bdist
